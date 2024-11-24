@@ -6,6 +6,7 @@ import Foundation
 import Combine
 import AVKit
 import UIKit.UIImage
+import PDFKit
 
 @MainActor
 final class FullscreenCellViewModel: ObservableObject {
@@ -16,6 +17,7 @@ final class FullscreenCellViewModel: ObservableObject {
     @Published var player: AVPlayer? = nil
     @Published var isPlaying = false
     @Published var videoSize: CGSize = .zero
+    @Published var pdfDocument: PDFDocument? = nil
 
     private var currentTask: Task<Void, Never>?
 
@@ -42,6 +44,11 @@ final class FullscreenCellViewModel: ObservableObject {
                 videoSize = await getVideoSize(url)
             case .none:
                 break
+                
+            case .pdf:
+                let url = await mediaModel.getURL()
+                guard let url = url else { return }
+                loadPDFDocument(from: url)
             }
         }
     }
@@ -52,6 +59,17 @@ final class FullscreenCellViewModel: ObservableObject {
         }
         NotificationCenter.default.addObserver(self, selector: #selector(finishVideo), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
     }
+    
+    func loadPDFDocument(from url: URL) {
+        if let pdfDocument = PDFDocument(url: url) {
+            DispatchQueue.main.async {
+                self.pdfDocument = pdfDocument
+            }
+        } else {
+            print("Failed to load PDF document.")
+        }
+    }
+
 
     @objc func finishVideo() {
         player?.seek(to: CMTime(seconds: 0, preferredTimescale: 10))
