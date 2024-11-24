@@ -70,6 +70,8 @@ final class MediaCellViewModel: ObservableObject {
                 self.imageUrl = url
             case .video:
                 self.player = AVPlayer(url: url)
+            case .pdf:
+                break
             }
         }
     }

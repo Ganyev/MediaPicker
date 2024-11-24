@@ -41,6 +41,8 @@ extension URLMediaModel: MediaModelProtocol {
             return await url.getThumbnailURL()
         case .none:
             return nil
+        case .pdf:
+            return url
         }
     }
 
@@ -56,6 +58,8 @@ extension URLMediaModel: MediaModelProtocol {
             return await url.getThumbnailData()
         case .none:
             return nil
+        case .pdf:
+            return try? Data(contentsOf: url)
         }
     }
 }
