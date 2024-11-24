@@ -15,7 +15,7 @@ struct MediaCell: View {
     @StateObject var viewModel: MediaCellViewModel
 
     var body: some View {
-        GeometryReader { g in
+        GeometryReader { geometry in
             VStack {
                 if let url = viewModel.imageUrl {
                     AsyncImage(url: url) { phase in
@@ -33,7 +33,7 @@ struct MediaCell: View {
                     ProgressView()
                 }
             }
-            .frame(width: g.size.width, height: g.size.height)
+            .frame(width: geometry.size.width, height: geometry.size.height)
             .clipped()
         }
         .task {

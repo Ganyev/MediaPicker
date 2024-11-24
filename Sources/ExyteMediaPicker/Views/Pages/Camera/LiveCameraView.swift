@@ -45,7 +45,9 @@ public final class LiveVideoCaptureView: UIView {
 
     public override class var layerClass: AnyClass { AVCaptureVideoPreviewLayer.self }
 
+    // swiftlint:disable force_cast
     private var videoLayer: AVCaptureVideoPreviewLayer { layer as! AVCaptureVideoPreviewLayer }
+    // swiftlint:enable force_cast
 
     required init?(coder: NSCoder) {
         super.init(coder: coder)

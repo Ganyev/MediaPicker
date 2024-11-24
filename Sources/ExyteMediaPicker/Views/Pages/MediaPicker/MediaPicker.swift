@@ -148,7 +148,15 @@ public struct MediaPicker<AlbumSelectionContent: View, CameraSelectionContent: V
 
     @ViewBuilder
     var albumSelectionContainer: some View {
-        let albumSelectionView = AlbumSelectionView(viewModel: viewModel, showingCamera: cameraBinding(), currentFullscreenMedia: $currentFullscreenMedia, showingLiveCameraCell: showingLiveCameraCell, selectionParamsHolder: selectionParamsHolder, filterClosure: filterClosure, massFilterClosure: massFilterClosure) {
+        let albumSelectionView = AlbumSelectionView(
+            viewModel: viewModel,
+            showingCamera: cameraBinding(),
+            currentFullscreenMedia: $currentFullscreenMedia,
+            showingLiveCameraCell: showingLiveCameraCell,
+            selectionParamsHolder: selectionParamsHolder,
+            filterClosure: filterClosure,
+            massFilterClosure: massFilterClosure
+        ) {
             // has media limit of 1, and it's been selected
             isPresented = false
         }

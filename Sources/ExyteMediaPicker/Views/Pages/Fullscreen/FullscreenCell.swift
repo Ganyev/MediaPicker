@@ -14,15 +14,15 @@ struct FullscreenCell: View {
     @ObservedObject var keyboardHeightHelper = KeyboardHeightHelper.shared
 
     var body: some View {
-        GeometryReader { g in
+        GeometryReader { geometry in
             Group {
                 if let image = viewModel.image {
-                    let useFill = g.size.width / g.size.height > image.size.width / image.size.height
+                    let useFill = geometry.size.width / geometry.size.height > image.size.width / image.size.height
                     ZoomableScrollView {
                         imageView(image: image, useFill: useFill)
                     }
                 } else if let player = viewModel.player {
-                    let useFill = g.size.width / g.size.height > viewModel.videoSize.width / viewModel.videoSize.height
+                    let useFill = geometry.size.width / geometry.size.height > viewModel.videoSize.width / viewModel.videoSize.height
                     ZoomableScrollView {
                         videoView(player: player, useFill: useFill)
                     }
@@ -32,7 +32,7 @@ struct FullscreenCell: View {
                 }
             }
             .allowsHitTesting(!keyboardHeightHelper.keyboardDisplayed)
-            .position(x: g.frame(in: .local).midX, y: g.frame(in: .local).midY)
+            .position(x: geometry.frame(in: .local).midX, y: geometry.frame(in: .local).midY)
         }
         .task {
             await viewModel.onStart()

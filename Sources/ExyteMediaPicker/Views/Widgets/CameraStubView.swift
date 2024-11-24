@@ -30,12 +30,4 @@ struct CameraStubView: View {
     }
 }
 
-struct CameraStubView_Preview: PreviewProvider {
-    static var previews: some View {
-        CameraStubView {
-            debugPrint("close")
-        }
-    }
-}
-
 #endif
