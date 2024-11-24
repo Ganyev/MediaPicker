@@ -8,6 +8,7 @@ import Combine
 public enum MediaType {
     case image
     case video
+    case pdf
 }
 
 public struct Media: Identifiable, Equatable {
